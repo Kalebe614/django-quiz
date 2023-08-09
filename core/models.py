@@ -17,6 +17,9 @@ class BaseModel(models.Model):
 class CategoryModel(BaseModel):
     name = models.CharField(max_length=100, null=False, blank=True)
 
+    def __str__(self):
+        return self.name
+    
 
 class QuestionModel(BaseModel):
     category = models.ForeignKey(CategoryModel, related_name='questions', on_delete=models.CASCADE)
@@ -24,8 +27,12 @@ class QuestionModel(BaseModel):
     question_type = models.CharField('Question Type', max_length=3, choices=QUESTION_TYPE, null=False, blank=False)
     question = models.CharField('Question',max_length=255, null=False, blank=False)
     
+    def __str__(self):
+        return self.question
 class AnswerModel(BaseModel):
     question = models.ForeignKey(QuestionModel, related_name='answer', on_delete=models.CASCADE)
     text = models.CharField('Text Answer', max_length=255)
     is_correct = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.text
