@@ -237,3 +237,59 @@ input[type="radio"] {
   text-align: center;
   background-color: cadetblue;
 }
+
+/* Result */
+.tab {
+  display: flex;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 0;
+  flex-grow: 1; /* Distribute space equally among buttons */
+  text-align: center;
+  transition: 0.3s;
+  font-size: 17px;
+  border-right: 1px solid #ccc;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+
+.container-quiz .title-result{
+  font-size: 37px;
+  font-weight: 500;
+  position: relative;
+  text-align: center;
+}
+.container-quiz .title-result::before{
+  content: "";
+  position: absolute;
+  left: 210px;
+  bottom: 7px;
+  height: 3px;
+  width: 30px;
+  border-radius: 5px;
+  background: linear-gradient(135deg, #71b7e6, #9b59b6);
+}

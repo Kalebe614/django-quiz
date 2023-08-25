@@ -1,6 +1,8 @@
+from typing import Any, Dict
 from django.views.generic import ListView
-from .models import QuestionModel
-from django.http import JsonResponse
+from .models import QuestionModel, QuizModel
+from django.db.models import Sum
+from django.http import HttpRequest, HttpResponse, JsonResponse
 import random
 
 class IndexView(ListView):
@@ -27,29 +29,21 @@ class QuestionsView(ListView):
         
         return queryset
 
-    def render_to_response(self, context, **response_kwargs):
-        questions = list(self.get_queryset())
-        data = []
 
-        random.shuffle(questions)
+class ResultView(ListView):
+    template_name = 'result.html'
+    context_object_name = 'results'
+    model = QuizModel
 
-        for question in questions:
-            answers = question.answers.all() 
-            answers_data = []
+    def get_context_data(self, **kwargs: Any):
+        context= super().get_context_data(**kwargs)
+       
+        total_questions = QuizModel.objects.count()
+        total_points = QuizModel.objects.filter(is_correct=True).count()
 
-            for answer in answers:
-                answers_data.append({
-                    "text": answer.text,
-                    "is_correct": answer.is_correct
-                })
+        context['total_questions']= total_questions
+        context['total_points']= total_points
+        context['score']= round(total_points*100/total_questions)
 
-            random.shuffle(answers_data)
-
-            data.append({
-                "category": question.category.name,
-                "question": question.question,
-                "question_type": question.question_type,
-                "answers": answers_data
-            })
-
-        return JsonResponse(data, safe=False)
+       
+        return context
