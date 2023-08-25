@@ -75,10 +75,13 @@ function deactiveOptions(){
 //Go to next question or remove the button next if don't have more questions
 btnNext.addEventListener('click', function(){
   if( currentQuestionIndex+1 >= totalIndex ){
-    btnNext.remove()
+
   }else{
     currentQuestionIndex++
     redefineAttributeClass()
     showQuestion()
   }
 })
+
+
+//Send the result of quiz to the page result
