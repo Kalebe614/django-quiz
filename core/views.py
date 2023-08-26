@@ -13,7 +13,8 @@ class IndexView(ListView):
 class QuizView(ListView):
     template_name = 'quiz.html'
     model = QuestionModel
-
+    paginate_by = 1
+    
 class QuestionsView(ListView):
     template_name = 'questions.html'
     context_object_name = 'questions'
