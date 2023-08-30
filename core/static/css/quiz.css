@@ -1,13 +1,17 @@
 * {
     box-sizing: border-box;
     font-family: Helvetica; 
-    color: white;
-
 }
+
 body {
     background-image: linear-gradient(to right, rgba(41, 49, 163), rgb(129, 143, 188));
     font-size: 20px;
+    color: white;
 }
+a {
+     color: white;
+}
+
 .box {
     position: absolute;
     left: 50%;
@@ -21,6 +25,7 @@ body {
 
 .container {
     margin: 20px;
+    color: white;
 }
 h1{
     text-align: center;
@@ -34,6 +39,7 @@ p {
 .questions{
     padding: 10px;
     margin: 5px;
+
 
 }
 .btn-questions {
@@ -75,3 +81,54 @@ p {
     padding: 10px;   
 
 }
+
+/*Hidden all questions*/
+.hidden-question{
+    display: none;
+}
+
+
+/* Result */
+
+.container-result {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0,0,0,0.1);
+    padding: 15px;
+    width: 800px;
+}
+.container-result h2 {
+    text-align: center;
+    font-size: 22px;
+}
+.titles-result-questions span{
+    display: inline-block;
+    width: 22%;
+    text-align: center;
+    padding-bottom: 5px;
+}
+.titles-result-questions{
+    text-align: center;
+}
+.container-result h2 {
+    padding-top: 38px;
+}
+.result-answers {
+    text-align: center;
+}
+.result-answers span {
+    display: inline-block;
+    width: 22%;
+    text-align: center;
+    font-size: 15px;
+    padding-bottom: 10px;
+}
+.titles-result{
+    font-size: 19px!important;
+}
+.container-result{
+    display: none;
+}
+
