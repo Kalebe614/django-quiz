@@ -1,20 +1,24 @@
-from typing import Any, Dict
+from django.db.models.query import QuerySet
 from django.views.generic import ListView
-from .models import QuestionModel, QuizModel
-from django.db.models import Sum
-from django.http import HttpRequest, HttpResponse, JsonResponse
-import random
+from .models import QuestionModel, QuizModel, AnswerModel
+from django.db.models import Prefetch
 
 class IndexView(ListView):
     template_name = 'index.html'
     context_object_name = 'quiz'
     model = QuestionModel
 
+
 class QuizView(ListView):
     template_name = 'quiz.html'
     model = QuestionModel
-    paginate_by = 1
-    
+    context_object_name = 'questions'
+
+
+    queryset = QuestionModel.objects.all().prefetch_related(
+        Prefetch('answer_question', queryset=AnswerModel.objects.all().order_by('?'))
+    )
+
 class QuestionsView(ListView):
     template_name = 'questions.html'
     context_object_name = 'questions'
@@ -36,7 +40,7 @@ class ResultView(ListView):
     context_object_name = 'results'
     model = QuizModel
 
-    def get_context_data(self, **kwargs: Any):
+    def get_context_data(self, **kwargs):
         context= super().get_context_data(**kwargs)
        
         total_questions = QuizModel.objects.count()
