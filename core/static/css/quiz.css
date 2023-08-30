@@ -42,7 +42,7 @@ p {
 
 
 }
-.btn-questions {
+.link-questions {
     display: flex;
     text-decoration: none;
     background-color: rgba(0, 0, 0, 0.1);
@@ -52,9 +52,20 @@ p {
     border-radius: 10px;
     cursor: pointer;
 }
-.btn-questions:hover {
+.link-questions:hover {
   background-color: rgba(0, 0, 0, 0.3);
   
+}
+
+.link-questions.clicked { 
+    border: 1px solid rgb(93, 220, 34);
+    background-color: black;
+    pointer-events: none;
+    opacity: 0.5; 
+}
+.link-questions.disabled {
+    pointer-events: none;
+    opacity: 0.5; 
 }
 #commands{
     margin: 15px;
@@ -87,6 +98,9 @@ p {
     display: none;
 }
 
+#btn-next:active{
+    background-color: red;
+}
 
 /* Result */
 
