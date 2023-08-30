@@ -1,87 +1,80 @@
-let quizData = []
-let totalIndex 
-let currentQuestionIndex = 0; 
-const btnNext = document.querySelector('.btn-next');
-let btnOptions = document.querySelectorAll("button[class='alert option']");
+//Questions
 
-const questionTitle = document.getElementById('question-quiz')
+let idCurrentQuestion = 1 //Current position
 
-const resp1 = document.querySelector("span.response1") 
-const resp2 = document.querySelector("span.response2")
-const resp3 = document.querySelector("span.response3")
-const resp4 = document.querySelector("span.response4")
+//Get total number of questions
+const totalQuestions = document.getElementById('total-questions')
+const total = parseInt(totalQuestions.getAttribute('data-total'))
 
-// Load question 
-window.addEventListener('load', () => {
-    // Fazer uma requisição GET usando Axios
-    axios.get('http://127.0.0.1:8000/api/questions/')
-      .then(function (response) {
-        // Armazenar os dados da API em quizData
-        quizData = response.data
-        totalIndex = quizData.length
-        showQuestion();
-      })
-      .catch(function (error) {
-        console.error('Erro ao obter dados da API:', error);
-      });
-  });
+const counter = document.getElementById("current-counter") //Span Counter of current question
 
-//Show Questions and define the what aswwer is correct or not 
-function showQuestion() {
-    answers = quizData[currentQuestionIndex].answers
-    questionTitle.textContent = quizData[currentQuestionIndex].question
+let btnNext = document.getElementById('btn-next') //Button Next
 
-    resp1.textContent = answers[0].text
-    resp1.setAttribute('data', answers[0].is_correct)
+let currentQuestion = document.getElementById(`number-${idCurrentQuestion}`); //Div Current Question
 
-    resp2.textContent = answers[1].text
-    resp2.setAttribute('data', answers[1].is_correct)
 
-    resp3.textContent = answers[2].text
-    resp3.setAttribute('data', answers[2].is_correct)
+let linksQuestions = document.querySelectorAll('.questions a.link-questions'); //Links questions
 
-    resp4.textContent = answers[3].text
-    resp4.setAttribute('data', answers[3].is_correct)
+//Call the next question
+btnNext.onclick = function(event) {
+
+    event.preventDefault()
+
+    //If it is the last question, show the result
+    if (idCurrentQuestion == total) {
+        showResult()
+    } else {
+        showNextQuestion()
+    }
+
 }
 
+//Hide the answered question and show the next question
+function showNextQuestion() {
 
-//Verifying if the question is correct or not and apply the class attribute when selected
-btnOptions.forEach(opt => { opt.addEventListener('click', function(event){
+    activeLinks() //Active links
 
-      const spanData = event.currentTarget.querySelector('.text').getAttribute('data')
-     
-      if(spanData === 'true'){
-        opt.setAttribute('class', 'alert alert-success option')
-        deactiveOptions()
-      }else{
-        opt.setAttribute('class', 'alert alert-danger option')
-        deactiveOptions()
-      }
-      
-})})
+    currentQuestion.setAttribute('class', 'hidden-question') //Hidden the question
 
-//Redefine the class attribute and activate the buttons
-function redefineAttributeClass(){
-  btnOptions.forEach(btn => { 
-     btn.setAttribute('class', 'alert option' )
-     btn.disabled = false})
+    idCurrentQuestion += 1 //Update currrent question
+
+    counter.innerHTML = idCurrentQuestion //Update current counter
+
+    currentQuestion = document.getElementById(`number-${idCurrentQuestion}`)
+
+    currentQuestion.setAttribute('class', 'show-question')
 }
 
-//Deactive all options and able the botton to next question
-function deactiveOptions(){
-  
-  btnOptions.forEach(opt =>{opt.disabled = true})
-}
-//Go to next question or remove the button next if don't have more questions
-btnNext.addEventListener('click', function(){
-  if( currentQuestionIndex+1 >= totalIndex ){
+//Define the selected question and disable the other questions
+linksQuestions.forEach(link => {
+    link.addEventListener('click', function(event) {
+        event.preventDefault()
 
-  }else{
-    currentQuestionIndex++
-    redefineAttributeClass()
-    showQuestion()
-  }
+        this.classList.add('clicked') //Define the selected question
+
+        disableLinks() //Disable all other links
+    })
 })
 
+//Disable all links in the questions
+function disableLinks() {
+    linksQuestions.forEach(links => {
+        links.classList.add('disabled')
+    })
+}
 
-//Send the result of quiz to the page result
+//Activate all links in the questions
+function activeLinks() {
+    linksQuestions.forEach(links => {
+        links.classList.remove('disabled')
+    })
+}
+
+//Result 
+
+//Show the final result
+function showResult() {
+    document.querySelector('div[class=box]').style.display = "none"
+    document.querySelector('div[class=container-result]').style.display = "block"
+}
+
