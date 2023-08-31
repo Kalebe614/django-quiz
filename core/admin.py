@@ -15,7 +15,7 @@ class QuestionAdmin(admin.ModelAdmin):
 @admin.register(QuizModel)
 class QuizModelAdmin(admin.ModelAdmin):
     list_display = ['title','question','answer','correct_answer','is_correct','category','total_time']
-
+    readonly_fields = ['category', 'correct_answer', 'title']
 
 admin.site.register(QuestionModel, QuestionAdmin)
 admin.site.register(AnswerModel)

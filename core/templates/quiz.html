@@ -30,7 +30,7 @@
             <div id="box-responses">
                {% for answer  in question.answer_question.all %}      
                <div class="questions">
-                  <a href="#" class="link-questions">{{answer}}</a>
+                  <a href="#" class="link-questions" data-numb-question="{{forloop.parentloop.counter}}">{{answer}}</a>
                </div>
                {% endfor %}
             </div>
@@ -39,12 +39,12 @@
          <!--Commands-->
          {% endfor %}
          <div id="commands">
-            <span id="count">Question: <span id="current-counter">1</span><span id="total-questions" data-total="{{ questions|length }}"> of {{ questions|length }}"</span><a href="#" id="btn-next">Next</a>
+            <span id="count">Question: <span id="current-counter">1</span><span id="total-questions" data-total="{{ questions|length }}"> of {{ questions|length }}"</span><a href="#" id="btn-next" class="btn-disabled">Next</a>
          </div>
       </div>
    </div>
    
 {% include 'result.html' %}
-
+<script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
 <script src="{% static 'js/quiz.js' %}"></script>
 {% endblock content %}

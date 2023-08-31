@@ -53,7 +53,7 @@ class AnswerModel(BaseModel):
 class QuizModel(models.Model):
     title = models.CharField('Title', max_length=255, default='Quiz Temporary')
     question = models.ForeignKey(QuestionModel, related_name='quiz_question', on_delete=models.CASCADE)
-    answer = models.ForeignKey(AnswerModel, related_name='quiz_answers', on_delete=models.CASCADE)
+    answer = models.CharField('Answer User', max_length=255)
     correct_answer = models.ForeignKey(AnswerModel, related_name='quiz_answer', default=1, on_delete=models.CASCADE)
     category = models.ForeignKey(CategoryModel, related_name='quiz_category', on_delete=models.CASCADE)
     total_time = models.TimeField(blank=True, null=True)
@@ -64,3 +64,18 @@ class QuizModel(models.Model):
     
     def __str__(self):
         return self.title
+
+    #Set correct answer, category and is_correct based on question
+    def save(self, *args, **kwargs):
+    
+        self.correct_answer = AnswerModel.objects.get(question=self.question, is_correct=True)
+    
+        self.category = self.question.category
+
+
+        if (self.answer == str(self.correct_answer)):
+            self.is_correct = True
+        else:
+            self.is_correct = False
+
+        super().save(*args, **kwargs)

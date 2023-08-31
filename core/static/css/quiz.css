@@ -86,6 +86,11 @@ p {
 #btn-next:hover {
     background-color: rgb(32, 35, 189);
 }
+.btn-disabled {
+    pointer-events: none;
+    opacity: 0.5; 
+}
+
 #count {
     position: relative;
     top: 36px;
@@ -98,15 +103,12 @@ p {
     display: none;
 }
 
-#btn-next:active{
-    background-color: red;
-}
 
 /* Result */
 
 .container-result {
     position: absolute;
-    top: 25%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: rgba(0,0,0,0.1);
