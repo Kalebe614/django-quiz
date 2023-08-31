@@ -22,9 +22,11 @@ btnNext.onclick = function(event) {
 
     //If it is the last question, show the result
     if (idCurrentQuestion == total) {
+        addUserAnswer()//Add the user answer
         showResult()
     } else {
-        showNextQuestion()
+        addUserAnswer()//Add the user answer
+        showNextQuestion()//Show the next question
     }
 
 }
@@ -33,6 +35,8 @@ btnNext.onclick = function(event) {
 function showNextQuestion() {
 
     activeLinks() //Active links
+    
+    disableBtnNext()
 
     currentQuestion.setAttribute('class', 'hidden-question') //Hidden the question
 
@@ -53,6 +57,8 @@ linksQuestions.forEach(link => {
         this.classList.add('clicked') //Define the selected question
 
         disableLinks() //Disable all other links
+
+        enableBtnNext() //Enable the next question
     })
 })
 
@@ -78,3 +84,31 @@ function showResult() {
     document.querySelector('div[class=container-result]').style.display = "block"
 }
 
+
+function addUserAnswer(){
+  
+   let answerUser = document.querySelector(`.clicked[data-numb-question="${idCurrentQuestion}"]`);
+   
+   console.log(answerUser.textContent)
+   console.log(answerUser.getAttribute('data-is-correct'))
+   document.querySelector(`[class*="answer-user ${idCurrentQuestion}"]`).innerHTML = answerUser.getAttribute('data-numb-question')
+  
+   //Axios
+   axios({
+    method: 'post',
+    url: 'http://127.0.0.1:8000/api/quiz/',
+    data: {
+        "question": 2,
+        "answer": "Teste Olá mundo",
+        "total_time": null
+    }
+  });
+}
+
+function disableBtnNext(){
+  btnNext.classList.add('btn-disabled')
+}
+
+function enableBtnNext(){
+  btnNext.setAttribute('class','')
+}

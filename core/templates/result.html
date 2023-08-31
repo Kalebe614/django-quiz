@@ -5,22 +5,33 @@
       <span>Corrects Answers</span>
       <span>Your Score</span>
       <span>Time Taken</span>
-      <span>20</span>
-      <span>18</span>
-      <span>50%</span>
-      <span>2:30</span>
+      <span>{{ questions|length }}</span>
+      <span id="corrects-answers"></span>
+      <span id="percentage-hits"></span>
+      <span id="final-time"></span>
   </div>
 
   <h2>Questions answered</h2>
   <div class="result-answers">
+
     <span class="titles-result">Questions</span>
     <span class="titles-result">Your Answers</span>
     <span class="titles-result">Correct Answers</span>
     <span class="titles-result">Is Correct?</span>
-    
-    <span>Qual é a versão mais recente do HTML?</span>
-    <span>HTML 5</span>
-    <span>HTML 5</span>
-    <span>False</span>
-</div>
+
+    {% for question in questions  %}
+      <span>{{question}}</span>
+      <span class="answer-user {{forloop.counter}}">HTML 5</span>
+
+      {% for anwser in question.answer_question.all  %}
+        
+        {% if anwser.is_correct %}
+          <span class="correct-answer">{{anwser}}</span>
+        {% endif %}
+
+      {% endfor %}
+
+      <span class="is-correct">False</span> 
+    {% endfor %}
+  </div>
 </div>

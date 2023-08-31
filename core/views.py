@@ -1,5 +1,5 @@
 from django.db.models.query import QuerySet
-from django.views.generic import ListView
+from django.views.generic import ListView, CreateView
 from .models import QuestionModel, QuizModel, AnswerModel
 from django.db.models import Prefetch
 
@@ -52,3 +52,7 @@ class ResultView(ListView):
 
        
         return context
+class CreateAnswerView(CreateView):
+    model = QuizModel
+    fields = ['question', 'answer', 'correct_answer', 'is_correct', 'category', 'total_time']
+    
