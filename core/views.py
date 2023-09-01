@@ -1,4 +1,3 @@
-from django.db.models.query import QuerySet
 from django.views.generic import ListView, CreateView
 from .models import QuestionModel, QuizModel, AnswerModel
 from django.db.models import Prefetch
@@ -14,10 +13,19 @@ class QuizView(ListView):
     model = QuestionModel
     context_object_name = 'questions'
 
+    #Reset old quiz data
+    def reset_quiz_data(self):
+        QuizModel.objects.all().delete()
 
-    queryset = QuestionModel.objects.all().prefetch_related(
-        Prefetch('answer_question', queryset=AnswerModel.objects.all().order_by('?'))
-    )
+    def get_queryset(self):
+        self.reset_quiz_data()
+
+        queryset = super().get_queryset()
+        
+        queryset = QuestionModel.objects.all().prefetch_related(
+            Prefetch('answer_question', queryset=AnswerModel.objects.all().order_by('?'))
+        )
+        return queryset
 
 class QuestionsView(ListView):
     template_name = 'questions.html'
