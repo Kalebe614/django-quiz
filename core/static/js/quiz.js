@@ -92,17 +92,23 @@ function addUserAnswer(){
    console.log(answerUser.textContent)
    console.log(answerUser.getAttribute('data-is-correct'))
    document.querySelector(`[class*="answer-user ${idCurrentQuestion}"]`).innerHTML = answerUser.getAttribute('data-numb-question')
-  
+   
+   const csrfToken = document.cookie.match(/csrftoken=([^;]+)/)[1];
    //Axios
-   axios({
-    method: 'post',
-    url: 'http://127.0.0.1:8000/api/quiz/',
-    data: {
-        "question": 2,
-        "answer": "Teste Olá mundo",
-        "total_time": null
-    }
-  });
+    axios.post('/api/quiz/', {
+      question: '1',
+      answer: 'Flintstone'
+    }, {
+      headers: {
+        'X-CSRFToken': csrfToken
+      }
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 }
 
 function disableBtnNext(){
@@ -112,3 +118,4 @@ function disableBtnNext(){
 function enableBtnNext(){
   btnNext.setAttribute('class','')
 }
+
