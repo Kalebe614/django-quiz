@@ -14,7 +14,7 @@ class QuestionAdmin(admin.ModelAdmin):
      readonly_fields = ('created', 'updated')
 @admin.register(QuizModel)
 class QuizModelAdmin(admin.ModelAdmin):
-    list_display = ['title','question','answer','correct_answer','is_correct','category','total_time']
+    list_display = ['title','question','answer','correct_answer','is_correct','category', 'total_time']
     readonly_fields = ['category', 'correct_answer', 'title']
 
 admin.site.register(QuestionModel, QuestionAdmin)

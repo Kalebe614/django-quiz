@@ -56,8 +56,8 @@ class QuizModel(models.Model):
     answer = models.CharField('Answer User', max_length=255)
     correct_answer = models.ForeignKey(AnswerModel, related_name='quiz_answer', default=1, on_delete=models.CASCADE)
     category = models.ForeignKey(CategoryModel, related_name='quiz_category', on_delete=models.CASCADE)
-    total_time = models.TimeField(blank=True, null=True)
     is_correct = models.BooleanField(default=False)
+    total_time = models.CharField('Time', max_length=8, default='', blank=True)
     class Meta:
         verbose_name = 'Quiz'
         verbose_name_plural='Quizzes'

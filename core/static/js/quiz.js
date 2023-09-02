@@ -22,8 +22,8 @@ btnNext.onclick = function(event) {
 
     //If it is the last question, show the result
     if (idCurrentQuestion == total) {
-        addUserAnswer()//Add the user answer
-        showResult()
+        addUserAnswer(totalTime())//Add the user answer and the time
+        window.location.href = '/result'
     } else {
         addUserAnswer()//Add the user answer
         showNextQuestion()//Show the next question
@@ -36,7 +36,7 @@ function showNextQuestion() {
 
     activeLinks() //Active links
     
-    disableBtnNext()
+    disableBtnNext() //Disable btnNext
 
     currentQuestion.setAttribute('class', 'hidden-question') //Hidden the question
 
@@ -76,28 +76,26 @@ function activeLinks() {
     })
 }
 
-//Result 
-
-//Show the final result
-function showResult() {
-    document.querySelector('div[class=box]').style.display = "none"
-    document.querySelector('div[class=container-result]').style.display = "block"
+//Total Time
+function totalTime(){
+    hoursDisplay = String(hours).padStart(2, '0')
+    minutesDisplay = String(minutes).padStart(2, '0')
+    secondsDisplay = String(seconds).padStart(2, '0')
+  return String (hoursDisplay+':'+minutesDisplay+':'+secondsDisplay)
 }
 
-
-function addUserAnswer(){
+//Add answer 
+function addUserAnswer(totalTime){
   
    let answerUser = document.querySelector(`.clicked[data-numb-question="${idCurrentQuestion}"]`);
-   
-   console.log(answerUser.textContent)
-   console.log(answerUser.getAttribute('data-is-correct'))
-   document.querySelector(`[class*="answer-user ${idCurrentQuestion}"]`).innerHTML = answerUser.getAttribute('data-numb-question')
-   
+     
    const csrfToken = document.cookie.match(/csrftoken=([^;]+)/)[1];
+   
    //Axios
     axios.post('/api/quiz/', {
-      question: '1',
-      answer: 'Flintstone'
+      question: idCurrentQuestion,
+      answer: answerUser.textContent,
+      total_time: totalTime
     }, {
       headers: {
         'X-CSRFToken': csrfToken
@@ -119,3 +117,34 @@ function enableBtnNext(){
   btnNext.setAttribute('class','')
 }
 
+// Timer
+let hours = 0;
+let minutes = 0;
+let seconds = 0;
+
+function updateTimer() {
+    seconds++
+    if (seconds >= 60) {
+        seconds = 0
+        minutes++
+        if (minutes >= 60) {
+            minutes = 0
+            hours++
+        }
+    }
+
+    const hoursDisplay = String(hours).padStart(2, '0')
+    const minutesDisplay = String(minutes).padStart(2, '0')
+    const secondsDisplay = String(seconds).padStart(2, '0')
+
+    document.getElementById("hours").textContent = hoursDisplay
+    document.getElementById("minutes").textContent = minutesDisplay
+    document.getElementById("seconds").textContent = secondsDisplay
+}
+
+setInterval(updateTimer, 1000)
+
+//Start the timer
+document.addEventListener("DOMContentLoaded", function () {
+  updateTimer()
+});

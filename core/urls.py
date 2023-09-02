@@ -6,5 +6,4 @@ urlpatterns = [
     path('quiz/', views.QuizView.as_view(), name='quiz'),
     path('result/', views.ResultView.as_view(), name='resultQuiz'),
     path('api-auth/', include('rest_framework.urls')),
-    path('create-answer/', views.CreateAnswerView.as_view(), name='createAnswer'),
 ]
