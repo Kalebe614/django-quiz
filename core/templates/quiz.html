@@ -5,9 +5,12 @@
 <link rel="stylesheet" href="{% static 'css/quiz.css' %}">
 {% endblock head %}
 {% block content %}
-
+<!--Timer-->
 <!--Quiz-->
 <div class="box">
+      <div id="timer">
+         <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>
+      </div>
    <div class="container">
       <div id="title-quiz">
          <h1>Quiz</h1>
@@ -43,8 +46,6 @@
          </div>
       </div>
    </div>
-   
-{% include 'result.html' %}
 <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
 <script src="{% static 'js/quiz.js' %}"></script>
 {% endblock content %}

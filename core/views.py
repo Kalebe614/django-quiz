@@ -1,7 +1,7 @@
 from django.views.generic import ListView, CreateView
 from .models import QuestionModel, QuizModel, AnswerModel
 from django.db.models import Prefetch
-
+from .utils import reset_quiz_data
 class IndexView(ListView):
     template_name = 'index.html'
     context_object_name = 'quiz'
@@ -12,13 +12,10 @@ class QuizView(ListView):
     template_name = 'quiz.html'
     model = QuestionModel
     context_object_name = 'questions'
-
-    #Reset old quiz data
-    def reset_quiz_data(self):
-        QuizModel.objects.all().delete()
-
+  
     def get_queryset(self):
-        self.reset_quiz_data()
+
+        reset_quiz_data(self, QuizModel)
 
         queryset = super().get_queryset()
         
@@ -27,40 +24,24 @@ class QuizView(ListView):
         )
         return queryset
 
-class QuestionsView(ListView):
-    template_name = 'questions.html'
-    context_object_name = 'questions'
-    queryset = QuestionModel.objects.all()
-
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        
-        category_filter = self.request.GET.get('category')
-
-        if category_filter:
-            queryset = queryset.filter(category__name=category_filter)
-        
-        return queryset
-
-
 class ResultView(ListView):
     template_name = 'result.html'
     context_object_name = 'results'
     model = QuizModel
 
     def get_context_data(self, **kwargs):
-        context= super().get_context_data(**kwargs)
-       
-        total_questions = QuizModel.objects.count()
-        total_points = QuizModel.objects.filter(is_correct=True).count()
+        
+        context = super().get_context_data(**kwargs)
 
-        context['total_questions']= total_questions
-        context['total_points']= total_points
-        context['score']= round(total_points*100/total_questions)
+        total_correct_answers = QuizModel.objects.filter(is_correct=True).count()  
+        total_questions = QuizModel.objects.all().count()
+        time = QuizModel.objects.last()
+    
 
-       
+        context['total_correct_answers'] = total_correct_answers
+        context['score'] =  round((total_correct_answers / total_questions)*100,1)
+        context['total_time'] = time.total_time
         return context
-class CreateAnswerView(CreateView):
-    model = QuizModel
-    fields = ['question', 'answer', 'correct_answer', 'is_correct', 'category', 'total_time']
+
+
     
