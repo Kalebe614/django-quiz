@@ -12,6 +12,7 @@ class AnswerAdmin(admin.StackedInline):
 class QuestionAdmin(admin.ModelAdmin):
      inlines = [AnswerAdmin]
      readonly_fields = ('created', 'updated')
+     list_display = ['id','category','question']
 @admin.register(QuizModel)
 class QuizModelAdmin(admin.ModelAdmin):
     list_display = ['title','question','answer','correct_answer','is_correct','category', 'total_time']
