@@ -1,57 +1,33 @@
-<div class="settings-quiz">
 
-    <div class="container">
-        <div class="title">Journey into Knowledge</div>
+{% load static %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock extra_head %}
+
+<div class="settings-quiz">
+  <div id="parallelogram"></div>
+    <div id="container">
+      <!--Content-->
         <div class="content">
-          <form action="#">
-            <div class="user-details">
-              <div class="input-box">
-                <span class="details">Category</span>
-                <select class="form-select select-category" aria-label="Default select example">
-                    <option selected value="1">Any Category</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+          <div id="title">Journey into Knowledge</div>
+            <!--Form-->
+          <form action="#" class="form">
+       
+              <div class="category">
+                <span>Category</span>
+                <select class="form-select" aria-label="Default select example">
+                   
+                    {% for category in categories%}
+                      {% if category.name == 'Any' %}
+                        <option selected value="{{category.id}}">{{category.name}}</option>
+                      {% else %}
+                        <option value="{{ category.id }}">{{category.name}}</option>
+                      {% endif%}
+                    {% endfor%}
                 </select>
               </div>
-              <div class="input-box">
-                <span class="details">Quantaty of Questions</span>
-                <select class="form-select select-category" aria-label="Default select example">
-                    <option selected value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                </select>
-              </div>
-              <div class="input-box">
-                <span class="details">Difficulty Level</span>
-                <select class="form-select select-category" aria-label="Default select example">
-                    <option selected value="1">Easy</option>
-                    <option value="2">Medium</option>
-                    <option value="3">Hard</option>
-                </select>
-              </div>
-              <div class="input-box">
-                <span class="details">Question Type</span>
-                <select class="form-select select-category" aria-label="Default select example">
-                    <option selected value="1">Multiple Choice</option>
-                    <option value="2">True / False</option>
-                </select>
-              </div>
-              <div class="input-box">
-                <span class="details">Hour</span>
-                <select class="form-select select-category" aria-label="Default select example">
-                    <option selected value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                </select>
-              </div>
-              <div class="input-box">
-                <span class="details">Minutes</span>
-                <select class="form-select select-category" aria-label="Default select example">
-                    <option selected value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                </select>
-              </div>
+            
+      
             <div class="button">
               <input type="submit" value="Start">
             </div>

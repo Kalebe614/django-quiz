@@ -1,45 +1,45 @@
 {% extends "base.html" %}
 {% load static %}
 {% block head %}
-  <link rel="stylesheet" href="{% static 'css/result.css' %}">
+<link rel="stylesheet" href="{% static 'css/result.css' %}">
 {% endblock head %}
-
 {% block content %}
-
-  <div class="box">
-    <div class="content">
-
-  <div class="container-result">
-    <h1>Result</h1>
-      <div class="titles-result-questions">
-        <span>Total Questions</span>
-        <span>Corrects Answers</span>
-        <span>Your Score</span>
-        <span>Time Taken</span>
-
-          <span>{{ results|length }}</span>
-          <span id="corrects-answers">{{total_correct_answers}}</span>
-          <span id="percentage-hits">{{score}} %</span>
-          <span id="final-time">{{total_time}}</span>
-    </div>
-
-    <h2>Questions answered</h2>
-    <div class="result-answers">
-  
-      <span>Questions</span>
-      <span>Your Answers</span>
-      <span>Correct Answers</span>
-      <span>Is Correct?</span>
-
+<!--Container-->
+<div class="container">
+   <!--Result-->
+   <div id="result">
+      <div id="title-result">
+         <h1>Result</h1>
+      </div>
+      <div>Total Questions</div>
+      <div>Corrects Answers</div>
+      <div>Your Score</div>
+      <div>Time Taken</div>
+      <div>{{ results|length }}</div>
+      <div>{{total_correct_answers}}</div>
+      <div>{{score}} %</div>
+      <div>{{total_time}}</div>
+   </div>
+   <!--Answers-->
+   <div id="answers">
+      <div id="title-questions-answered">
+         <h2>Questions answered</h2>
+      </div>
+      <div class="divs-questions">Questions</div>
+      <div class="divs-answers">Your Answers</div>
+      <div class="divs-correct-answers">Correct Answers</div>
+      <div class="divs-is-correct">Is Correct?</div>
+   </div>
+   <div id="questions-answers">
       {% for result in results  %}
-        <span class="question-result">{{result.question}}</span>
-        <span>{{result.answer}}</span>
-        <span>{{result.correct_answer}}</span>
-        <span {% if result.is_correct %} class="answer-true"{% else %}class="answer-false"{% endif %}>{{result.is_correct}}</span>
-
-      {% endfor %}
-    </div>
-  </div>
-  </div>
-  </div>
+      <div class="row-answer">
+         <div class="divs-questions">{{result.question}}</div>
+         <div class="divs-answers">{{result.answer}}</div>
+         <div class="divs-correct-answers">{{result.correct_answer}}</div>
+         <div {% if result.is_correct %} class="answer-true divs-is-correct"{% else %}class="answer-false divs-is-correct"{% endif %}>{{result.is_correct}}
+      </div>
+   </div>
+   {% endfor %}
+</div>
+</div>
 {% endblock content %}
