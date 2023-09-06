@@ -1,12 +1,5 @@
 from django.db import models
 
-LEVEL_CHOICE = [(1,'Easy'),
-                (2,'Medium'),
-                (3,'Hard'),]
-QUESTION_TYPE =[
-            ('MCQ', 'Multiple Choice Question'),
-            ('TF', 'True/False Question'),
-]
 class BaseModel(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -27,10 +20,8 @@ class CategoryModel(BaseModel):
 
 class QuestionModel(BaseModel):
     category = models.ForeignKey(CategoryModel, related_name='question_category', on_delete=models.CASCADE)
-    level_choice = models.IntegerField('Level Choice', choices=LEVEL_CHOICE, null=False, blank=False)
-    question_type = models.CharField('Question Type', max_length=3, choices=QUESTION_TYPE, null=False, blank=False)
     question = models.CharField('Question',max_length=255, null=False, blank=False)
-    
+   
     class Meta:
         verbose_name = 'Question'
         verbose_name_plural = 'Questions'
