@@ -10,9 +10,19 @@ class AnswerAdmin(admin.StackedInline):
     readonly_fields = ('created', 'updated')
     extra = 4
 class QuestionAdmin(admin.ModelAdmin):
-     inlines = [AnswerAdmin]
-     readonly_fields = ('created', 'updated')
-     list_display = ['id','category','question']
+    inlines = [AnswerAdmin]
+    readonly_fields = ('created', 'updated')
+    list_display = ['id','category','question', 'get_correct_answer']
+
+    def get_correct_answer(self, object):
+        answer = object.answer_question.filter(is_correct=True).first()
+        if answer:
+            return answer.text
+        else:
+            return 
+
+    get_correct_answer.short_description = 'Correct Answer'
+
 @admin.register(QuizModel)
 class QuizModelAdmin(admin.ModelAdmin):
     list_display = ['title','question','answer','correct_answer','is_correct','category', 'total_time']

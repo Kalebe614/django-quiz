@@ -87,25 +87,29 @@ function totalTime(){
 //Add answer 
 function addUserAnswer(totalTime){
   
-   let answerUser = document.querySelector(`.clicked[data-numb-question="${idCurrentQuestion}"]`);
-     
+   let answerUser = document.querySelector(`.clicked[data-numb-answer="${idCurrentQuestion}"]`);
+   //Get the ID of the Question
+   let question = document.querySelector(`.quest-number-${idCurrentQuestion}`).getAttribute('data-numb-question')
+
    const csrfToken = document.cookie.match(/csrftoken=([^;]+)/)[1];
-   
+
+   console.log(idCurrentQuestion, answerUser.textContent,totalTime)
    //Axios
     axios.post('/api/quiz/', {
-      question: idCurrentQuestion,
+      question: question,
       answer: answerUser.textContent,
-      total_time: totalTime
+      total_time: totalTime,
     }, {
       headers: {
-        'X-CSRFToken': csrfToken
+        'X-CSRFToken': csrfToken,
       }
     })
     .then(function (response) {
-      console.log(response);
+
     })
     .catch(function (error) {
       console.log(error);
+     
     });
 }
 
