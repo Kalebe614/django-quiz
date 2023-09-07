@@ -26,14 +26,14 @@
          <div id=number-{{ forloop.counter }} class="hidden-question">
             {% endif %}
             <div id="question">
-               <p>{{question}} </p>
+               <p class="quest-number-{{forloop.counter}}" data-numb-question="{{question.id}}">{{question}} </p>
             </div>
 
             <!--Answers-->
             <div id="box-responses">
                {% for answer  in question.answer_question.all %}      
                <div class="questions">
-                  <a href="#" class="link-questions" data-numb-question="{{forloop.parentloop.counter}}">{{answer}}</a>
+                  <a href="#" class="link-questions" data-numb-answer="{{forloop.parentloop.counter}}">{{answer}}</a>
                </div>
                {% endfor %}
             </div>
