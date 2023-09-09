@@ -62,7 +62,7 @@ class ResultView(ListView):
         if total_correct_answers > 0:
             context['score'] =  round((total_correct_answers / total_questions)*100,1)
     
-        if time.total_time != "":
+        if time != None and time.total_time != "":
             context['total_time'] = time.total_time
         else:
             context['total_time'] = "0"

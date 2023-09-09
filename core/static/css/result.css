@@ -64,6 +64,7 @@ h1 {
 }
 
 #questions-answers .titles.row-answer:hover {
+	font-size: 17px;
 	background-color: rgba(0, 0, 0, 0.1);
 
 }
@@ -128,5 +129,5 @@ h2 {
 
 #questions-answers .row-answer:hover {
 	background-color: rgba(0, 0, 0, 0.5);
-	font-size: 16px;
+    font-size: 16px;
 }
