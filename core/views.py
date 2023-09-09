@@ -1,4 +1,4 @@
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView
 from .models import QuestionModel, QuizModel, AnswerModel, CategoryModel
 from django.db.models import Prefetch
 from .utils import reset_quiz_data
