@@ -58,9 +58,15 @@ class ResultView(ListView):
     
         #Create all context objects
         context['total_correct_answers'] = total_correct_answers
-        context['score'] =  round((total_correct_answers / total_questions)*100,1)
-        context['total_time'] = time.total_time
-        
+
+        if total_correct_answers > 0:
+            context['score'] =  round((total_correct_answers / total_questions)*100,1)
+    
+        if time.total_time != "":
+            context['total_time'] = time.total_time
+        else:
+            context['total_time'] = "0"
+         
         return context
 
 
