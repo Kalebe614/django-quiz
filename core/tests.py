@@ -3,9 +3,11 @@ from functools import reduce
 # Create your tests here.
 
 numeros = [2, 3, 5, 2]
+frutas = ['banana', 'pera', 'banana']
 
-multiplica = lambda x, y: x*y
 
-total = reduce(multiplica, numeros)
+frutas.append('abacate')
+frutas2 =['Caqui']
 
-print(total)
+frutas2.extend(frutas)
+print(frutas2.count('banana'))

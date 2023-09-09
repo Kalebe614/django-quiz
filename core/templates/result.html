@@ -7,6 +7,7 @@
 <!--Container-->
 <div class="container">
    <!--Result-->
+
    <div id="result">
       <div id="title-result">
          <h1>Result</h1>
@@ -25,13 +26,18 @@
       <div id="title-questions-answered">
          <h2>Questions answered</h2>
       </div>
-      <div class="divs-questions">Questions</div>
-      <div class="divs-answers">Your Answers</div>
-      <div class="divs-correct-answers">Correct Answers</div>
-      <div class="divs-is-correct">Is Correct?</div>
+     
    </div>
    <div id="questions-answers">
+     
+      <div class="titles row-answer" >
+         <div class="divs-questions titles">Questions</div>
+         <div class="divs-answers titles">Your Answers</div>
+         <div class="divs-correct-answers titles">Correct Answers</div>
+         <div class="divs-is-correct titles">Is Correct?</div>
+      </div>
       {% for result in results  %}
+
       <div class="row-answer">
          <div class="divs-questions">{{result.question}}</div>
          <div class="divs-answers">{{result.answer}}</div>
