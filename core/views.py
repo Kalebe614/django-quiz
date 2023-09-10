@@ -16,18 +16,18 @@ class QuizView(ListView):
     def get_queryset(self):
 
         reset_quiz_data(self, QuizModel)#reset the temporary quiz data
-
-        queryset = super().get_queryset() 
+            
+        queryset = super().get_queryset()
         
         category = self.request.GET.get('category')# Get the selected category 
 
         # Category 0 represents all categories
         if category == "0":
             queryset = QuestionModel.objects.all().prefetch_related(
-                Prefetch('answer_question', queryset=AnswerModel.objects.all().order_by('?')))
+                Prefetch('answer_question', queryset=AnswerModel.objects.all().order_by('?'))).order_by('?')
         else:
             queryset = QuestionModel.objects.filter(category=category).prefetch_related(
-                Prefetch('answer_question', queryset=AnswerModel.objects.all().order_by('?')))
+                Prefetch('answer_question', queryset=AnswerModel.objects.all().order_by('?'))).order_by('?')
         
         # If an non-existent number was forced, get all questions
         if not queryset.exists():

@@ -1,3 +1,5 @@
 from django.test import TestCase
 
-# Create your tests here.
+lista =['a', 'b', 'c', 'd', 'e']
+lista.clear()
+print(True or False)
