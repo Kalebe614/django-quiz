@@ -71,14 +71,7 @@ pip install -r requirements.txt
 ```
 </p>
 <p>
-4. Run the database migrations:
-
-```
-python manage.py migrate
-```
-</p>
-<p>
-5. Execute the project:
+4. Execute the project:
 
 ```
 python manage.py runserver
