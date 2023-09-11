@@ -1,4 +1,4 @@
-# <p align="center">Simple Quiz with Django</p>
+# <p align="center">Quiz with Django</p>
 
 [crude]: https://www.codecademy.com/article/what-is-crud
 
@@ -17,7 +17,7 @@
 [my_github]: https://github.com/Kalebe614
 [my_porfolio]: https://kalebe614.github.io/
 
-#### <p align="center">A simple Quiz application built with [Django][django]</p>
+#### <p align="center">A Quiz application built with [Django][django]</p>
 
 
 ![Img_Project](core/static/img/index.png)
